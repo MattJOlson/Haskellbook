@@ -49,3 +49,23 @@ data Person =
         name :: String,
         age :: Int
     } deriving (Eq, Show)
+
+-- Showing projections from records
+isTrustworthy :: Person -> Bool
+isTrustworthy p
+    | age p <= 30 = True
+    | otherwise   = False
+
+-- 11.13, dicking around with builders
+data Cat =
+    Kitteh String Integer Bool
+    deriving (Eq, Show)
+
+catNamed :: String -> Integer -> Bool -> Cat
+catNamed = Kitteh
+
+withAge :: Integer -> (Integer -> Bool -> Cat) -> Bool -> Cat
+withAge i k = k i
+
+isGood :: Bool -> (Bool -> Cat) ->  Cat
+isGood g k = k g
